@@ -95,4 +95,4 @@ public/
 # DynamoDB Local files
 .dynamodb/
 
-# End of https://www.gitignore.io/api/node
+/gatsby-node.js
