@@ -26,6 +26,7 @@
   },
   "scripts": {
     "build": "babel src --out-dir .",
+    "prepublish": "yarn build",
     "prepare": "cross-env NODE_ENV=production yarn build",
     "watch": "babel -w src --out-dir . "
   }
