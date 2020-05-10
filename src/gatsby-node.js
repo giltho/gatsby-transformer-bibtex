@@ -2,6 +2,47 @@ import { URL } from 'url';
 import { parseBibFile } from 'bibtex';
 import _ from 'lodash';
 
+function getRaw(allContent, key) {
+  let openbib = /@\s*\w+\s*{(.+),/gm;
+  let groups = null;
+  while ((groups = openbib.exec(allContent)) !== null) {
+    if (groups[1].trim().toLowerCase() !== key.trim().toLowerCase()) {
+      continue;
+    } else {
+      let startIndex = openbib.lastIndex - groups[0].length;
+      let index = openbib.lastIndex;
+      let escaped = false;
+      let stack = 0;
+      while (index < allContent.length) {
+        switch(allContent.charAt(index)) {
+          case '{':
+            if (escaped) { escaped = false; break };
+            escaped = false;
+            stack = stack + 1;
+            break;
+          case '}':
+            if (escaped) { escaped = false; break };
+            escaped = false;
+            if (stack === 0){
+                return allContent.substring(startIndex, index + 1)
+            } else {
+              stack = stack - 1;
+            };
+            break;
+          case '\\':
+            escaped = true;
+            break;
+          default:
+            escaped = false;
+            break;
+        }
+        index = index + 1;
+      }
+    }
+  }
+  return null; // That should not happen but let us not break compilation if it happens.
+}
+
 String.prototype.replaceAll = function (search, replacement) {
   return this.replace(new RegExp(search, 'g'), replacement);
 }
@@ -43,12 +84,14 @@ function jsonOfEntry(entry) {
   const authors = _.map(entry.getAuthors().authors$, (auth, _) => auth.firstNames + " " + auth.lastNames);
   const date = entry.getFieldAsString('issue_date') ? entry.getFieldAsString('issue_date') : entry.getFieldAsString('year');
   return {
+    type: entry.type,
     title: entry.getFieldAsString('title'),
     file: entry.getFieldAsString('file'),
     slides: entry.getFieldAsString('slides'),
     abstract: entry.getFieldAsString('abstract'),
     authors: authors.map(cleanAccents).map(x => x.trim()),
     url: entry.getFieldAsString('url'),
+    preprint: entry.getFieldAsString('preprint'),
     doi: entry.getFieldAsString('doi'),
     youtubeId: getYoutubeId(entry.getFieldAsString('youtube')),
     date : date.toString(),
@@ -78,6 +121,7 @@ async function onCreateNode(
       const bibArray = onlyFieldsWithKey.map((ref) => {
         return {
           ...ref,
+          raw: getRaw(content, ref.key),
           id: createNodeId(`${node.id} ${ref.key} >>> BIBTEX`),
           children: [],
           parent: node.id,

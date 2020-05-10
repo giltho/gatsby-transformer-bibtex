@@ -96,7 +96,9 @@ Note that there is also a `slides` field that works in exactly the same way.
 
 For now, only the following bibtex fields are available in queries:
 
+- `raw` : `string` (the entire citation in raw format)
 - `key` : `string` (lower-cased bibtex key)
+- `type` : `string` (`@article {...}` has the type `article`)
 - `title` : `string`
 - `abstract` : `string`
 - `authors` : `string[]`
@@ -106,6 +108,8 @@ For now, only the following bibtex fields are available in queries:
 - `journal` : `string`
 - `file` : `File`
 - `slides` : `File`
+- `preprint` : `string` if it's a URL or `File` if it's a local file.
+- `youtubeId` : `string` (note that if the bibtex contains a youtube link, the video's ID is extracted)
 
 
 ## Contributions

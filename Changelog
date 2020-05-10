@@ -1,5 +1,8 @@
 *** Unreleased
 
+* Adds youtube field
+* Adds raw field
+* Adds preprint field
 * Adds slides field, works like the file field
 
 *** 0.3.0
