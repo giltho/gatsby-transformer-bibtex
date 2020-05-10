@@ -1,8 +1,25 @@
+import { URL } from 'url';
 import { parseBibFile } from 'bibtex';
 import _ from 'lodash';
 
 String.prototype.replaceAll = function (search, replacement) {
   return this.replace(new RegExp(search, 'g'), replacement);
+}
+
+function getYoutubeId(ytstring) {
+  if (ytstring) {
+    let is_link = ytstring.includes("youtube.com");
+    let id = null;
+    if (is_link) {
+      let url = new URL(ytstring);
+      id = url.searchParams.get('v');
+    } else {
+      id = ytstring // if it's not a link we're assuming it's the id
+    }
+    return id
+  } else {
+    return null
+  }
 }
 
 function cleanAccents(str) {
@@ -33,6 +50,7 @@ function jsonOfEntry(entry) {
     authors: authors.map(cleanAccents).map(x => x.trim()),
     url: entry.getFieldAsString('url'),
     doi: entry.getFieldAsString('doi'),
+    youtubeId: getYoutubeId(entry.getFieldAsString('youtube')),
     date : date.toString(),
     journal: entry.getFieldAsString('journal')
   }
