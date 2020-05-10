@@ -2,7 +2,7 @@
   "name": "gatsby-transformer-bibtex",
   "description": "Gatsby transformer plugin for bibtex files",
   "author": "Sacha \"giltho\" Ayoun",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "keywords": [
     "gatsby",
