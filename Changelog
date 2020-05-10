@@ -1,3 +1,7 @@
+*** Unreleased
+
+* Adds slides field, works like the file field
+
 *** 0.3.0
 
 * German accents in author fields by @tobiasgrosser

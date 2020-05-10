@@ -28,6 +28,7 @@ function jsonOfEntry(entry) {
   return {
     title: entry.getFieldAsString('title'),
     file: entry.getFieldAsString('file'),
+    slides: entry.getFieldAsString('slides'),
     abstract: entry.getFieldAsString('abstract'),
     authors: authors.map(cleanAccents).map(x => x.trim()),
     url: entry.getFieldAsString('url'),

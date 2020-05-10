@@ -90,6 +90,7 @@ const ComponentName = () => (
 export default ComponentName
 ```
 
+Note that there is also a `slides` field that works in exactly the same way.
 
 ## Current limitations
 
@@ -104,6 +105,7 @@ For now, only the following bibtex fields are available in queries:
 - `date` : `string`
 - `journal` : `string`
 - `file` : `File`
+- `slides` : `File`
 
 
 ## Contributions
