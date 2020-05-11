@@ -83,7 +83,7 @@ function cleanAccents(str) {
 function jsonOfEntry(entry) {
   const authors = _.map(entry.getAuthors().authors$, (auth, _) => auth.firstNames + " " + auth.lastNames).map(cleanAccents).map(x => x.trim());
   const date = (entry.getFieldAsString('issue_date') ? entry.getFieldAsString('issue_date') : entry.getFieldAsString('year')).toString();
-  const youtubeId = entry.getFieldAsString('youtubeId') ? entry.getFieldAsString('youtubeId') : entry.getYoutubeId(entry.getFieldAsString('youtube'));
+  const youtubeId = entry.getFieldAsString('youtubeId') ? entry.getFieldAsString('youtubeId') : getYoutubeId(entry.getFieldAsString('youtube'));
   const entry_type = entry.type;
   const ret = {};
   Object.keys(entry.fields).forEach(k => {
