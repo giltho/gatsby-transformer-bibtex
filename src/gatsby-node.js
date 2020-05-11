@@ -81,21 +81,20 @@ function cleanAccents(str) {
 }
 
 function jsonOfEntry(entry) {
-  const authors = _.map(entry.getAuthors().authors$, (auth, _) => auth.firstNames + " " + auth.lastNames);
-  const date = entry.getFieldAsString('issue_date') ? entry.getFieldAsString('issue_date') : entry.getFieldAsString('year');
+  const authors = _.map(entry.getAuthors().authors$, (auth, _) => auth.firstNames + " " + auth.lastNames).map(cleanAccents).map(x => x.trim());
+  const date = (entry.getFieldAsString('issue_date') ? entry.getFieldAsString('issue_date') : entry.getFieldAsString('year')).toString();
+  const youtubeId = getYoutubeId(entry.getFieldAsString('youtube'));
+  const entry_type = entry.type;
+  const ret = {};
+  Object.keys(entry.fields).forEach(k => {
+    ret[k] = entry.getFieldAsString(k);
+  })
   return {
-    type: entry.type,
-    title: entry.getFieldAsString('title'),
-    file: entry.getFieldAsString('file'),
-    slides: entry.getFieldAsString('slides'),
-    abstract: entry.getFieldAsString('abstract'),
-    authors: authors.map(cleanAccents).map(x => x.trim()),
-    url: entry.getFieldAsString('url'),
-    preprint: entry.getFieldAsString('preprint'),
-    doi: entry.getFieldAsString('doi'),
-    youtubeId: getYoutubeId(entry.getFieldAsString('youtube')),
-    date : date.toString(),
-    journal: entry.getFieldAsString('journal')
+    ...ret,
+    authors,
+    date,
+    youtubeId,
+    entry_type
   }
 }
 
