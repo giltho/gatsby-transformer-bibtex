@@ -90,6 +90,7 @@ function jsonOfEntry(entry) {
     slides: entry.getFieldAsString('slides'),
     abstract: entry.getFieldAsString('abstract'),
     authors: authors.map(cleanAccents).map(x => x.trim()),
+    note: entry.getFieldAsString('note'),
     url: entry.getFieldAsString('url'),
     preprint: entry.getFieldAsString('preprint'),
     doi: entry.getFieldAsString('doi'),
