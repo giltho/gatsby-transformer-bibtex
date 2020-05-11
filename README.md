@@ -46,9 +46,20 @@ query {
 }
 ```
 
+### Special fields
+
+Every field is simply the string value that was in the corresponding Bibtex entry, except for some fields that have a special behaviour.
+
+- The `entry_type` field contains the type of the entry. For example, an entry starting with `@article{...` will have `"article"` in its `entry_type` field.
+- The `date` field is either the provided `issue_date` if it exists, or `year` if it does not. It is always a `string`.
+- The `authors` field is a list of the authors' names, that has been extracted from the bibtex.
+- The `raw` field contains the entire bibtex entry as a raw string.
+- The `youtubeId` is created if a `youtube` field is in your bibtex file. If your `youtube` field contains a youtubeId, it's just copied, if it contains a youtube link, the id is extracted from it.
+
 ### Working with files
 
-`Reference` nodes may contain a `file` field if you specified it in your Bibtex file. The type of this field is the `File` type provided by `gatsby-source-filesystem`. In particular, it contains a `publicURL` field that is useful if you want to add a link to the file.
+It is possible to work with local files, and to create fields of type `File` in your nodes.
+If in *every of your entries*, for a given field, the value is not specified (`null`) or it is a relative path to a file, then Gatsby will transform it into a `File` field provided by `gatsby-source-filesystem`. In particular, this field contains a `publicURL` field that is useful if you want to add a link to the file. 
 
 For example, if the path you gave to `gatsby-source-fileystem` contains
 ```
@@ -90,31 +101,9 @@ const ComponentName = () => (
 export default ComponentName
 ```
 
-Note that there is also a `slides` field that works in exactly the same way.
-
-## Current limitations
-
-For now, only the following bibtex fields are available in queries:
-
-- `raw` : `string` (the entire citation in raw format)
-- `key` : `string` (lower-cased bibtex key)
-- `type` : `string` (`@article {...}` has the type `article`)
-- `title` : `string`
-- `abstract` : `string`
-- `authors` : `string[]`
-- `url` : `string`
-- `doi` : `string`
-- `date` : `string`
-- `journal` : `string`
-- `file` : `File`
-- `slides` : `File`
-- `preprint` : `string` if it's a URL or `File` if it's a local file.
-- `youtubeId` : `string` (note that if the bibtex contains a youtube link, the video's ID is extracted)
-
-
 ## Contributions
 
-This project is not extremely mature, but I've had feedback that it is used. PRs and issues are more than welcome :)
+This project is not extremely mature, but I've had feedback that it is used. PRs and issues are more than welcome 😁
 
 ## LICENSE
 
