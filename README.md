@@ -107,6 +107,7 @@ For now, only the following bibtex fields are available in queries:
 - `date` : `string`
 - `journal` : `string`
 - `note` : `string`
+- `school` : `string`
 - `file` : `File`
 - `slides` : `File`
 - `preprint` : `string` if it's a URL or `File` if it's a local file.
