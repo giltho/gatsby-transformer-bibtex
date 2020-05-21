@@ -75,6 +75,8 @@ function cleanAccents(str) {
           .replaceAll("\\\\\"o", "ö")
           .replaceAll("\\\\\"U", "Ü")
           .replaceAll("\\\\\"u", "ü")
+          .replaceAll("\\\\\~A", "Ã")
+          .replaceAll("\\\\\~a", "ã")
           .replaceAll("\\\\'c", "ć")
           .replaceAll("\\\\'E", "É")
           .replaceAll(",", " ")
