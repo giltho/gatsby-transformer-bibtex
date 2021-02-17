@@ -74,7 +74,7 @@ where `publications.bib` contains
  author = {Name, Your and Of-Yours, Coauthor},
  title = {Paper A},
  ...
- file = {paper_a.pdf} % path relative to where this .bib file is
+ file = {paper_a.pdf}
 } 
 ```
 
