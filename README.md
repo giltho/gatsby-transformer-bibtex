@@ -78,6 +78,11 @@ where `publications.bib` contains
 } 
 ```
 
+In the code above, `paper_a.pdf` should be replaced by a path relative to where the .bib file is.
+Note that the parser does not handle comments, bibtex file should be kept comment-free.
+
+I would also advise to keep the bibtex entries as simple as possible, since gatsby-transformer-bibtex has to handle fields manually, so only a limited amount of field will be working correctly.
+
 Then you can create a component in the following way:
 ```js
 import React from "react"
